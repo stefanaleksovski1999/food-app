@@ -1,0 +1,93 @@
+.card-preview {
+    position: relative;
+    width: 300px;
+    overflow: hidden ;
+    box-shadow: 0px 0px 15px -5px;
+    width: 373px;
+    height: 428px;
+    border-radius: 5px;
+   
+    
+}
+
+
+.image-container img {
+    position: relative;
+    overflow: hidden ;
+    height: 234px;
+    width: 373px;
+}
+
+.blog-list {
+    display: flex;
+    justify-content: space-evenly; 
+    gap: 40px;
+    margin-bottom: 70px;  
+}
+
+
+
+.title-card {
+    font: normal normal bold 20px/26px Roboto Slab;
+    color: #F0972A;
+    margin-left: 25px;
+
+}
+.text-card {
+    font: normal normal normal 14px/19px Roboto;
+    color: #A5A5A5;
+    font: normal normal normal 14px/19px Roboto;
+    margin-left: 25px;
+
+}
+
+.category {
+    background-color: #96BB36;
+    width: 63px;
+    height: 19px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 10px;
+    margin-left: 25px;
+    
+    
+}
+.icon-arr {
+    background:#96BB36;
+}
+
+.card-info {
+    
+    display: flex;
+    justify-content: space-evenly;  
+    
+    margin-bottom: 2px;
+    bottom: 6px;
+    margin-left: 25px;
+
+}
+
+.card-items {
+    display: flex;
+    flex-direction: row;
+    font: normal normal bold 12px/16px Roboto Slab;
+    color: #626262;
+    gap: 5px;
+}
+
+.card-footer-txt {
+    color: #626262;
+}
+
+.move-up {
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between ;
+    margin-right: 30px;
+    margin-top: 10px;
+    
+    
+}

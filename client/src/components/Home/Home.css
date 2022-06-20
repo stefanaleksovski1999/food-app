@@ -1,0 +1,12 @@
+
+.blog-preview {
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.blog-list {
+    display: flex;
+    flex-direction: row;
+}

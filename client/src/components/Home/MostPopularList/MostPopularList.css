@@ -1,0 +1,14 @@
+.blog-list2 {
+    display: flex;
+    justify-content: space-evenly;   
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+    
+}
+
+.card-preview {
+    margin-top: 20px;
+
+}
+
