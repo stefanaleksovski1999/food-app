@@ -17,7 +17,8 @@ const getAll = async (req, res) => {
 
 const update = async (req, res) => {
   await Account.findByIdAndUpdate(req.params.id, req.body);
-  const account = await Account.findById(req.params.id);
+  req.body.image = `http://localhost:3000/images/${req.file.filename}`
+  const account = await Account.findByIdAndUpdate(req.params.id, req.body);
 
   res.send({
     error: false,

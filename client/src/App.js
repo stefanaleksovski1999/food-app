@@ -7,6 +7,7 @@ import Lunch from './components/Lunch/Lunch';
 import Dinner from './components/Dinner/Dinner';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
+import MyProfile from './components/MyProfile/MyProfile';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { useState } from 'react';
 
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route exact path="/acc/create">
               <Register/>
+            </Route>
+            <Route exact path="/acc/my-profile">
+              <MyProfile/>
             </Route>
           </Switch>
         </div>

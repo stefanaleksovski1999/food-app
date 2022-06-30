@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../../Modal/Modal";
 import "./FreshRecipeList.css"
 
 
 const FreshRecipeList = ({recipes, title}) => {
 
-    // const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
+    const [modalContent, setModalContent] = useState('')
 
+
+    const handleClickOne = (recipeId) => {
+        fetch(`http://localhost:3000/recipes/` + recipeId)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+             setModalContent(data);
+        });
+    }  
+    
 
 
     return ( 
@@ -18,7 +30,9 @@ const FreshRecipeList = ({recipes, title}) => {
             <div className="blog-list">
                 {recipes.recipes.map((recipe) => (
                     
-                     <div className="card-preview" onClick={() => {setOpenModal(true)}} key={recipe._id}>
+                     <div 
+                        className="card-preview" 
+                        onClick={() => {handleClickOne(recipe._id);modalContent && setOpenModal(true)}} key={recipe._id} >
                         
                             <div className="image-container">
                             <img  src={recipe.image}/>
@@ -50,8 +64,9 @@ const FreshRecipeList = ({recipes, title}) => {
                         </div>
                     </div>
                 ))}
-                                        {/* {openModal && <Modal closeModal={setOpenModal}  recipe={recipe}/>} */}
+                
 
+                {openModal && <Modal closeModal={setOpenModal}  recipe={modalContent} setModalContent={setModalContent}/>}
             </div>
 
             <script src="https://kit.fontawesome.com/ab800b58c4.js" crossorigin="anonymous"></script>

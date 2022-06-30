@@ -4,7 +4,6 @@ const controller = require('../controllers/recipes');
 const upload = require('../utilities/upload/multer');
 
 router.get('/', controller.getAll)
-      .get('/:id', controller.getOne)
       .get('/last3', controller.getLastThree)
       .get('/popular', controller.getPopular)
       .get('/breakfast', controller.getBreakfast)
@@ -12,6 +11,7 @@ router.get('/', controller.getAll)
       .get('/lunch', controller.getLunch)
       .get('/dinner', controller.getDinner)
       .post('/', upload.single('image'), controller.create)
+      .get('/:id', controller.getOne)
       .patch('/:id', controller.update)
       .delete('/:id', controller.destroy)
 

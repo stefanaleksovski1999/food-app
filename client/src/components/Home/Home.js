@@ -16,12 +16,11 @@ const Home = () => {
            return res.json();
        })
        .then(data => {
-            console.log(data); 
             setMostPopular(data);
        });
    },[])
    
-   console.log(mostPopular);
+  
 
 
     return ( 

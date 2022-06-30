@@ -22,8 +22,10 @@ const getOne = async (req, res) => {
 }
 
 const getLastThree = async (req, res) => {
+  console.log("----------------------------")
 
   const recipes = await Recipe.find();
+  console.log("----------------------------")
   const last3 = recipes.slice(-3);
   
   res.send({
