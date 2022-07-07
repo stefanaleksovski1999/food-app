@@ -2,7 +2,7 @@ const Recipe = require('../models/recipe');
 const upload = require('../utilities/upload/multer');
 
 const getAll = async (req, res) => {
-  const recipes = await Recipe.find();
+  const recipes = await Recipe.find().populate('account', 'first_name last_name');
 
   res.send({
     error: false,
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 };
 
 const getOne = async (req, res) => {
-  const oneRecipe = await Recipe.findById(req.params.id);
+  const oneRecipe = await Recipe.findById(req.params.id).populate('account', 'first_name last_name');
 
   res.send({
     error:false,
@@ -37,7 +37,7 @@ const getLastThree = async (req, res) => {
 
 const getPopular = async (req, res) => {
   
-  const recipes = await Recipe.find();
+  const recipes = await Recipe.find().populate('account', 'first_name last_name');
 
   recipes.sort(function (a, b) {
     return b.likes - a.likes;

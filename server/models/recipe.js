@@ -32,6 +32,10 @@ const recipeSchema = mongoose.Schema({
   },
   image: {
     type: String
+  },
+  account: {
+    ref: 'account',
+    type: mongoose.Types.ObjectId
   }
   
 }, { timestamps: true });

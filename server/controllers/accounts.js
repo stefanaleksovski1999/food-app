@@ -4,7 +4,7 @@ const response = require('../lib/response_handler');
 const jwt = require('jsonwebtoken');
 
 const getAll = async (req, res) => {
-  const accounts = await Account.find();
+  const accounts = await Account.find().populate('recipes', "title");
 
   res.send({
     error: false,
@@ -14,8 +14,7 @@ const getAll = async (req, res) => {
 };
 
 
-
-const update = async (req, res) => {
+const uploadImg = async (req, res) => {
   await Account.findByIdAndUpdate(req.params.id, req.body);
   req.body.image = `http://localhost:3000/images/${req.file.filename}`
   const account = await Account.findByIdAndUpdate(req.params.id, req.body);
@@ -27,6 +26,18 @@ const update = async (req, res) => {
   });
 };
 
+
+const update = async (req, res) => {
+  const account = await Account.findByIdAndUpdate(req.params.id, req.body).populate('recipes', "title");
+
+  res.send({
+    error: false,
+    message: `Account with id #${account._id} has been updated`,
+    account: account
+  });
+};
+
+
 const destroy = async (req, res) => {
   await Account.findByIdAndDelete(req.params.id);
   
@@ -35,6 +46,11 @@ const destroy = async (req, res) => {
     message: `Account with id #${req.params.id} has been deleted`
   });
 };
+
+
+
+
+
 
 const register = async (req, res) => {
   try {
@@ -60,7 +76,8 @@ const register = async (req, res) => {
     return response(res, 500, error.msg);
   }
   
-}
+};
+
 
 const login = async (req, res) => {
   try {
@@ -88,10 +105,12 @@ const login = async (req, res) => {
   } catch (error) {
     return response(res, 500, error.msg);
   }
-}
+};
+
 
 module.exports = {
   getAll,
+  uploadImg,
   update,
   destroy,
   login,

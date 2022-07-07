@@ -95,7 +95,6 @@ const Register = (props) => {
                 }}
                 
               />
-              <button className="login-button2" onClick={login}> CREATE ACCOUNT </button>
             </div>
             <div className="field-control">
               <label className="input-name">Repeat Password</label>
@@ -103,11 +102,12 @@ const Register = (props) => {
                 className="input-control"
                 type="password"             
                 onChange={(e) => {
-                setPassword(e.target.value);
+                  setPassword(e.target.value);
                 }}
               />
             </div>
             
+                <button className="login-button2" onClick={login}> CREATE ACCOUNT </button>
           </div>
 
         </div>

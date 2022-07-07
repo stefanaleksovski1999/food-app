@@ -24,7 +24,12 @@ const accountSchema = mongoose.Schema({
   },
   image: {
     type: String
-  }
+  },
+  recipes: [{
+      type: mongoose.Types.ObjectId,
+      ref: 'recipe',
+      required: false,
+    }],
   
 }, { timestamps: true });
 
