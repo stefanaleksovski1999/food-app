@@ -23,12 +23,13 @@ const accountSchema = mongoose.Schema({
     required: true
   },
   image: {
-    type: String
+    type: String,
+    required: false
   },
   recipes: [{
       type: mongoose.Types.ObjectId,
       ref: 'recipe',
-      required: false,
+      required: false
     }],
   
 }, { timestamps: true });

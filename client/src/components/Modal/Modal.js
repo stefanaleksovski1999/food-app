@@ -6,7 +6,7 @@ function Modal({ closeModal, recipe, setModalContent }) {
     console.log(recipe);
 
   return (
-    <div className="modalBackground">
+    <div className="modalBackground" onClick={() => {closeModal(false); setModalContent(null)}}>
         <div className="modalContainer">
             <div className="first-row">
                 <div className="modalTitle">

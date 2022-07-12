@@ -8,48 +8,68 @@ import Dinner from './components/Dinner/Dinner';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { useState } from 'react';
+import MyRecipes from './components/MyRecipes/MyRecipes';
+import { BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { UserContext } from './services/UserContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [loggedUser, setLoggedUser] = useState(null);
+  const value = useMemo(() => ({ loggedUser, setLoggedUser}), [loggedUser, setLoggedUser]);
+
+
+  console.log(loggedUser);
+
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar userLogged={isLoggedIn} />
-        <div className="content">
-          <Switch>
-            <Route exact path="/">
-              <Home/>
-            </Route>
-            <Route exact path="/breakfast">
-              <Breakfast/>
-            </Route>
-            <Route exact path="/brunch">
-              <Brunch/>
-            </Route>
-            <Route exact path="/lunch">
-              <Lunch/>
-            </Route>
-            <Route exact path="/dinner">
-              <Dinner/>
-            </Route>
-            <Route exact path="/acc/login">
-              <Login/>
-            </Route>
-            <Route exact path="/acc/create">
-              <Register/>
-            </Route>
-            <Route exact path="/acc/my-profile">
-              <MyProfile/>
-            </Route>
-          </Switch>
+    <UserContext.Provider value={ { loggedUser, setLoggedUser} }>
+      <Router>
+        <div className="App">
+          <Navbar/>
+          <div className="content">
+            <Switch>
+              <Route exact path="/">
+                <Home/>
+              </Route>
+              <Route exact path="/breakfast">
+                <Breakfast/>
+              </Route>
+              <Route exact path="/brunch">
+                <Brunch/>
+              </Route>
+              <Route exact path="/lunch">
+                <Lunch/>
+              </Route>
+              <Route exact path="/dinner">
+                <Dinner/>
+              </Route>
+              <Route exact path="/acc/login">
+                <Login/>
+              </Route>
+              <Route exact path="/acc/create">
+                <Register/>
+              </Route>
+              <Route exact path="/acc/my-profile">
+                <MyProfile/>
+              </Route>
+              <Route exact path="/acc/my-recipes">
+                <MyRecipes/>
+              </Route>
+
+
+              {/* <ProtectedRoute>
+                <MyProfile path='/acc/my-profile' isLoggedIn={loggedUser}  />
+              </ProtectedRoute> */}
+
+
+            </Switch>
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
-      </div>
-    </Router>
+      </Router>
+    </UserContext.Provider>
     
   );
 }

@@ -3,15 +3,21 @@ import FreshRecipeList from './FreshRecipeList/FreshRecipeList';
 import MostPopularList from './MostPopularList/MostPopularList';
 import useFetch from '../useFetch';
 import "./Home.css";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../../services/UserContext";
 
 const Home = () => {
-   const { data: recipes, isPending, error } = useFetch('http://localhost:3000/recipes/last3');
+
    const [mostPopular, setMostPopular] = useState(null);
+
+   const [last3, setLast3] = useState(null)
+
 
 
    useEffect(() => {
-       fetch('http://localhost:3000/recipes/popular')
+       fetch('http://localhost:3000/recipes/popular', {
+           method: 'get',
+       })
        .then(res => {
            return res.json();
        })
@@ -20,14 +26,25 @@ const Home = () => {
        });
    },[])
    
+   useEffect(() => {
+    fetch('http://localhost:3000/recipes/last3', {
+        method: 'get',
+    })
+    .then(res => {
+        return res.json();
+    })
+    .then(data => {
+         setLast3(data);
+    });
+},[])
+
   
 
 
     return ( 
         <div className="home"> 
-            { error && <div>{error}</div>}
-            { isPending && <div>Loading...</div>}
-            { recipes && <FreshRecipeList recipes={recipes} title="Fresh & New"/>}
+            
+            { last3 && <FreshRecipeList recipes={last3} title="Fresh & New"/>}
             { mostPopular && <MostPopularList recipes={mostPopular} title="Most Popular Recipes"/>}
         </div>
      );

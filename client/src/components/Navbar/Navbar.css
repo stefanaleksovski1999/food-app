@@ -31,6 +31,33 @@
     
 }
 
+.logged-items {
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    font: normal normal 900 18px/24px Roboto;
+
+}
+
+
+.my-recipes {
+    color: #96BB36;
+}
+
+.my-profile {
+    color: #F0972A;
+}
+
+.logout5 {
+    color: #B5B5B4;
+}
+
+.dot2 {
+    color: #626262;
+}
+
 .dot {
     height: 9px;
     width: 9px;
@@ -38,6 +65,15 @@
     border-radius: 50%;
     display: inline-block;
   }
+
+  .dot2 {
+    height: 9px;
+    width: 9px;
+    background-color: #626262;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
 
 .navbaritem3 {
     display: flex;

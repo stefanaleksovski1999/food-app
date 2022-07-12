@@ -1,26 +1,27 @@
 import "./Register.css"
 import React, { useState } from 'react'
-
+import { Redirect } from "react-router";
+import Home from "../../Home/Home";
 const Register = (props) => {
   
 
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [date, setDate] = useState(new Date())
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [dateOfBirth, setDate] = useState(new Date())
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
 
-    // const [loginStatus, setLoginStatus] = useState(false);
 
 
-      const login = (e) => {
+
+      const register = (e) => {
         e.preventDefault();
 
-        const data = { email, password };
+        const data = {first_name, last_name, dateOfBirth, email, password };
 
-        fetch('http://localhost:3000/accounts/login', {
+        fetch('http://localhost:3000/accounts/create', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -30,8 +31,9 @@ const Register = (props) => {
           })
       };
       
-      //treba da go stavam tokenot vo  useContext ili redux 
-   
+      // tuka treba da napravam redirect dokolku se kreira acc.
+
+         
     return (
       <div className="container" >
         <div className="login-line">
@@ -107,7 +109,7 @@ const Register = (props) => {
               />
             </div>
             
-                <button className="login-button2" onClick={login}> CREATE ACCOUNT </button>
+                <button className="login-button2" onClick={register}> CREATE ACCOUNT </button>
           </div>
 
         </div>

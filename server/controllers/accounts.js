@@ -53,29 +53,32 @@ const destroy = async (req, res) => {
 
 
 const register = async (req, res) => {
-  try {
-    let account = await Account.findOne({ email: req.body.email });
-    if (account) {
-      return res.send({
-        error: true,
-        message: 'Bad request. User exists with the provided emal.'
+
+    console.log('zdravo')
+
+    try {
+      let account = await Account.findOne({ email: req.body.email });
+      if (account) {
+        return res.status(400).send({
+          error: true,
+          message: 'Bad request. User exists with the provided email.'
+        });
+      } 
+
+      req.body.password = bcrypt.hashSync(req.body.password);
+
+      const user = await Account.create(req.body);
+      
+      res.status(201).send({
+        error: false,
+        message: 'New user has been created',
+        account: user
       });
-    } 
 
-    req.body.password = bcrypt.hashSync(req.body.password);
-
-    account = await Account.create(req.body);
+    } catch(error) {
+      return response(res, 500, error.msg);
+    }
     
-    res.send({
-      error: false,
-      message: 'New user has been created',
-      user: user
-    });
-
-  } catch(error) {
-    return response(res, 500, error.msg);
-  }
-  
 };
 
 
@@ -92,7 +95,7 @@ const login = async (req, res) => {
 
         const token = jwt.sign(payload, '1234');
 
-        response(res, 200, "You have logged in succesfully", { token })
+        response(res, 200, "You have logged in succesfully", { token, account } )
 
       } else {
         response(res, 401, "invalid credentials");

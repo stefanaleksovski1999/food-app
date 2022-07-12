@@ -14,6 +14,7 @@ const DinnerList = ({recipes, title}) => {
         })
         .then(data => {
              setModalContent(data);
+             setOpenModal(true)
         });
     }  
 
@@ -27,7 +28,7 @@ const DinnerList = ({recipes, title}) => {
                 {recipes.recipes.map((recipe) => (
                      <div 
                         className="card-preview" 
-                        onClick={() => {handleClickOne(recipe._id);modalContent && setOpenModal(true)}}
+                        onClick={() => {handleClickOne(recipe._id)}}
                         key={recipe._id}>
                         
                             <div className="image-container">

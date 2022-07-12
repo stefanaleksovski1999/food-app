@@ -1,5 +1,8 @@
 import './MyProfile.css';
-import React, {useState } from "react";
+import React, {useState, useContext } from "react";
+import { UserContext } from "../../services/UserContext";
+import { withRouter } from 'react-router';
+
 
 const MyProfile = () => {
     const [firstName, setFirstName] = useState('');
@@ -9,7 +12,9 @@ const MyProfile = () => {
     const [password, setPassword] = useState('');
 
 
-    // const [loginStatus, setLoginStatus] = useState(false);
+    const { loggedUser, setLoggedUser } = useContext(UserContext);
+
+
 
 
       const login = (e) => {
@@ -39,16 +44,24 @@ const MyProfile = () => {
         </div>
         
         <div className="content">
+          
+        
+
           <div className="avatar-container">
-            <img className="avatar"  src={require('./avatar2.jpg')}></img>
+            <img className="avatar"  src={loggedUser.account.image}></img>
 
-            <button className="change-avatar">CHANGE AVATAR</button>
-
+            <label className='label-tag' for="inputTag">
+               CHANGE AVATAR
+              <input id="inputTag" className='input-hidden' type="file"/>
+            </label>
+            
           </div>
+
           <div className="form-control3"> 
             <div className="field-control">
               <label className="input-name">First name</label>
               <input
+                placeholder={loggedUser.account.first_name}
                 className="input-control"
                 type="first-name"
                 onChange={(e) => {
@@ -59,6 +72,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Last name</label>
               <input
+                placeholder={loggedUser.account.last_name}
                 className="input-control"
                 type="last-name"             
                 onChange={(e) => {
@@ -69,6 +83,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Email</label>
               <input
+                placeholder={loggedUser.account.email}
                 className="input-control"
                 type="email"             
                 onChange={(e) => {
@@ -79,6 +94,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Birthday</label>
               <input
+                placeholder={loggedUser.account.dateOfBirth}
                 className="input-control"
                 type="date"             
                 onChange={(e) => {
@@ -106,8 +122,8 @@ const MyProfile = () => {
                   setPassword(e.target.value);
                 }}
               />
-              <button className="login-button2" onClick={login}> SAVE </button>
             </div>
+              <button className="login-button2" onClick={login}> SAVE </button>
             
           </div>
 
@@ -117,4 +133,4 @@ const MyProfile = () => {
     )
 }
  
-export default MyProfile;
+export default withRouter(MyProfile);

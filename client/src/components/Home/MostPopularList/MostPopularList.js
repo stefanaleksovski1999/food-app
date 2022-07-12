@@ -15,6 +15,7 @@ const MostPopularList = ({recipes, title}) => {
         })
         .then(data => {
              setModalContent(data);
+             setOpenModal(true)
         });
     }  
 
@@ -28,7 +29,7 @@ const MostPopularList = ({recipes, title}) => {
                 {recipes.sixRecipes.map((recipe) => (
                      <div 
                         className="card-preview"
-                        onClick={() => {handleClickOne(recipe._id);modalContent && setOpenModal(true)}}
+                        onClick={() => {handleClickOne(recipe._id)}}
                         key={recipe._id}>
                         
                             <div className="image-container">
