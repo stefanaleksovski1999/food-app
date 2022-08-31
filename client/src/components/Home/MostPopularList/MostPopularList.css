@@ -11,4 +11,7 @@
     margin-top: 20px;
 
 }
+.card-preview:hover {
+    cursor: pointer;
+}
 

@@ -9,6 +9,7 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile';
 import MyRecipes from './components/MyRecipes/MyRecipes';
+import CreateRecipe from './components/MyRecipes/CreateRecipe/CreateRecipe';
 import { BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import { UserContext } from './services/UserContext';
@@ -56,6 +57,9 @@ function App() {
               </Route>
               <Route exact path="/acc/my-recipes">
                 <MyRecipes/>
+              </Route>
+              <Route exact path="/acc/my-recipes/create">
+                <CreateRecipe/>
               </Route>
 
 

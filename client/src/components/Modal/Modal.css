@@ -1,6 +1,6 @@
-*{
+/* *{
     background-color: #FFFFFF;
-}
+} */
 
 .modalBackground {
     background: rgba(255, 254, 254, 0.5);
@@ -20,7 +20,7 @@
 
 .modalContainer {
     border: 1px solid #D8D8D8;
-    background-color: red;
+    
     width: 1000px;
     height: 550px;
     margin-top: 130px;
@@ -37,7 +37,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #FFFFFF;
     
+}
+
+.liked {
+    fill: green;
 }
 
 .modalContent {
@@ -47,10 +52,12 @@
 }
 
 .modalTitle {
+    background-color: #FFFFFF;
     color: #F0972A;
     font: normal normal bold 20px Roboto Slab;
     margin-top: 22px;
     margin-bottom: 22px;
+
 }
 
 .modal-image {
@@ -103,4 +110,12 @@
     color: #A5A5A5;
     border: none;
     font-size: 30px;
+    background-color: white;
+}
+
+.like-button {
+    cursor: pointer;
+}
+.liked {
+    color: brown;
 }

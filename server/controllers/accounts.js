@@ -14,28 +14,45 @@ const getAll = async (req, res) => {
 };
 
 
-const uploadImg = async (req, res) => {
-  await Account.findByIdAndUpdate(req.params.id, req.body);
-  req.body.image = `http://localhost:3000/images/${req.file.filename}`
-  const account = await Account.findByIdAndUpdate(req.params.id, req.body);
-
-  res.send({
-    error: false,
-    message: `Account with id #${account._id} has been updated`,
-    account: account
-  });
-};
-
-
 const update = async (req, res) => {
-  const account = await Account.findByIdAndUpdate(req.params.id, req.body).populate('recipes', "title");
+
+    
+  req.body.image = `http://localhost:3000/images/${req.file.filename}`
+  
+  const account = await Account.findByIdAndUpdate(req.params.id, req.body, {new: true});
 
   res.send({
     error: false,
     message: `Account with id #${account._id} has been updated`,
     account: account
   });
+  
 };
+
+
+const getOne = async (req, res) => {
+
+  const account = await Account.findById(req.params.id).populate('recipes', "title category", );
+
+  res.send({
+    error: false,
+    message: 'Account by id from the database',
+    account: account
+  });
+
+
+}
+
+
+// const update = async (req, res) => {
+//   const account = await Account.findByIdAndUpdate(req.params.id, req.body).populate('recipes', "title");
+
+//   res.send({
+//     error: false,
+//     message: `Account with id #${account._id} has been updated`,
+//     account: account
+//   });
+// };
 
 
 const destroy = async (req, res) => {
@@ -113,7 +130,7 @@ const login = async (req, res) => {
 
 module.exports = {
   getAll,
-  uploadImg,
+  getOne,
   update,
   destroy,
   login,

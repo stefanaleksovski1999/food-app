@@ -9,7 +9,7 @@ const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { loggedUser, setLoggedUser } = useContext(UserContext);
+    const { setLoggedUser } = useContext(UserContext);
     // const { loggedUser, setLoggedUser } = useContext(UserContext);
     const [ isLoggedIn, setIsLoggedIn] = useState(false);
     
@@ -33,11 +33,12 @@ const Login = (props) => {
             
           });
 
-          <Redirect to="/acc/my-profile"></Redirect>
+          
+
       };
 
       if (isLoggedIn) {
-        return <Redirect to={`/acc/my-profile/`} />
+        return <Redirect to={`/`} />
       }       
     return (
       <div className="container" >

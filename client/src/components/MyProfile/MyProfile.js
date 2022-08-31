@@ -5,36 +5,50 @@ import { withRouter } from 'react-router';
 
 
 const MyProfile = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [date, setDate] = useState(new Date())
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [date, setDate] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [file, setFile] = useState();
+  
+  const { loggedUser } = useContext(UserContext);
+
+    // const imgName = file.name
+
+    const data = {firstName, lastName, date, email, password, file };
+
+    // console.log(data)
+
+    const onSubmit = e => {
+
+      Object.keys(data).forEach(key => {
+        if (data[key] === '') {
+          delete data[key];
+        }
+      })
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('filename', file, file.name);
+
+      console.log(data)
 
 
-    const { loggedUser, setLoggedUser } = useContext(UserContext);
+      fetch(`http://localhost:3000/accounts/${loggedUser.account._id}`, {
+        method: 'POST',
+        // headers: { 
+        //   'Content-Type': 'multipart/form-data' },
+        body: formData
+      }).then(res => res.json())
+        .then ((data) => {
+          console.log(data)
+      });
+  
+    }
 
 
-
-
-      const login = (e) => {
-        e.preventDefault();
-
-        const data = { email, password, date, lastName, firstName };
-
-        console.log(data)
-
-        fetch('http://localhost:3000/accounts/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        }).then(res => res.json())
-          .then ((data) => {
-            console.log(data)
-          })
-      };
+    
       
-      //treba da go stavam tokenot vo  useContext ili redux 
    
     return (
       <div className="container" >
@@ -52,7 +66,14 @@ const MyProfile = () => {
 
             <label className='label-tag' for="inputTag">
                CHANGE AVATAR
-              <input id="inputTag" className='input-hidden' type="file"/>
+              <input 
+                id="inputTag" 
+                className='input-hidden' 
+                type="file"
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+              />
             </label>
             
           </div>
@@ -123,7 +144,7 @@ const MyProfile = () => {
                 }}
               />
             </div>
-              <button className="login-button2" onClick={login}> SAVE </button>
+              <button className="login-button2" onClick={onSubmit}> SAVE </button>
             
           </div>
 

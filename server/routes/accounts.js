@@ -6,8 +6,8 @@ const upload = require('../utilities/upload/multer');
 router.get('/', controller.getAll)
       .post('/create', controller.register)
       .post('/login', controller.login)
-      .post('/uploadImg/:id', upload.single('image'), controller.uploadImg)
-      .post('/:id', controller.update)
+      .get('/:id', controller.getOne)
+      .post('/:id', upload.single('image'), controller.update)
       .delete('/:id', controller.destroy)
       
       

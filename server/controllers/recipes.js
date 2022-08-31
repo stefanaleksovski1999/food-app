@@ -22,10 +22,8 @@ const getOne = async (req, res) => {
 }
 
 const getLastThree = async (req, res) => {
-  console.log("----------------------------")
 
   const recipes = await Recipe.find();
-  console.log("----------------------------")
   const last3 = recipes.slice(-3);
   
   res.send({
@@ -43,7 +41,6 @@ const getPopular = async (req, res) => {
     return b.likes - a.likes;
   });
 
-  console.log(recipes);
 
   const sixRecipes = recipes.slice(-6);
 
@@ -120,7 +117,6 @@ const getDinner = async (req, res) => {
 };
 
 const  create = async (req, res) => {
-  console.log(req.file.filename);
   try {
     req.body.image = `http://localhost:3000/images/${req.file.filename}`
     const recipe = await Recipe.create(req.body);
@@ -139,8 +135,8 @@ const  create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  await Recipe.findByIdAndUpdate(req.params.id, req.body);
-  const recipe = await Recipe.findById(req.params.id);
+
+  const recipe =  await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true});
 
   res.send({
     error: false,

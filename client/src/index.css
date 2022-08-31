@@ -1,10 +1,17 @@
 * {
   margin: 0;
-  background-color: #F8F7F2;
+  /* background-color: #F8F7F2; */
   font: normal normal bold  Roboto;
 }
 
 .content{
   padding-bottom: 200px;
 }
-  
+
+#root {
+  background-color: #F8F7F2;
+}
+/* .App {  
+  background-color: #F8F7F2;
+}
+   */
