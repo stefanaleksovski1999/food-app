@@ -10,6 +10,7 @@ const CreateRecipe = () => {
 
 
     const [file, setFile] = useState();
+    const [image, setImage] = useState();
     const [recipeTitle, setRecipeTitle] = useState('');
     const [category, setCategory] = useState('');
     const [prepTime, setPrepTime] = useState('');
@@ -24,7 +25,10 @@ const CreateRecipe = () => {
    
     // const data = {fileName, recipeTitle, category, prepTime, noPeople, shortDescription, recipe, loggedUserId};
 
-    
+    const handleImgChange = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
+    };
     
     
     const onSubmit = e => {
@@ -67,16 +71,14 @@ const CreateRecipe = () => {
             <div className='edit-recipe-container'>
                 <div className='item1'>
                     <p className='input-name'>Recipe Image</p>
-                    <img className="avatar recipe-avatar"  src={file}/>
+                    <img className="avatar recipe-avatar"  src={image}/>
                     <label className='label-tag upload-recipe-img' for="inputTag">
                         UPLOAD IMAGE
                         <input 
                         id="inputTag" 
                         className='input-hidden' 
                         type="file"
-                        onChange={(e) => {
-                            setFile(e.target.files[0]);
-                            }}
+                        onChange={handleImgChange}
                         />
                     </label>
                 </div>

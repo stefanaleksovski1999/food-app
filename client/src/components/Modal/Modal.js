@@ -2,6 +2,8 @@ import React from 'react'
 import "./Modal.css"
 import { useState, useContext } from 'react';
 import { UserContext } from "../../services/UserContext";
+import { Redirect } from 'react-router';
+import { useEffect } from 'react';
 
 
 
@@ -11,26 +13,32 @@ function Modal({ closeModal, recipe, setModalContent }) {
 
     const [likes, setLikes] = useState(recipe.oneRecipe.likes);
     const [isLike, setIsLike] = useState(false);
-    console.log(recipe);
-
-    const onLikeButtonClick = () => {
-        setLikes(likes + (isLike?-1:1));
-        setIsLike(!isLike);
-        
-        console.log(likes);
-
-        fetch(`http://localhost:3000/recipes/${recipe.oneRecipe._id}`, {
+    
+    console.log(loggedUser);
+    const recipeId = recipe.oneRecipe._id
+    
+    useEffect(() => {
+        fetch(`http://localhost:3000/recipes/${recipeId}`, {
             method: 'PATCH',
             headers: { 
-                'Authorization': `Bearer ${loggedUser.token}`
+                'Authorization': `Bearer ${loggedUser.token}`,
+                'Content-Type': 'application/json' 
             },
-            body: {
-                "likes": likes
-            }
+            body: JSON.stringify({
+                likes: likes,
+            }),
         }).then(res => res.json())
         .then ((data) => {
             console.log(data)
         });
+        
+      }, [likes]);
+    
+    const onLikeButtonClick = () => {
+        setLikes(likes + (isLike?-1:1));
+        setIsLike(!isLike);
+    
+        console.log('peder')
     }
 
   return (
