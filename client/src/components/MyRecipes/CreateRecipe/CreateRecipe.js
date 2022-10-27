@@ -30,7 +30,7 @@ const CreateRecipe = () => {
         setFile(e.target.files[0]);
     };
     
-    
+   
     const onSubmit = e => {
 
         // Object.keys(data).forEach(key => {
@@ -40,19 +40,26 @@ const CreateRecipe = () => {
         // })
         e.preventDefault();
         const formData = new FormData();
-        formData.append('filename', file, file.name);
-
-        
-  
+        formData.append('image', file);
+        formData.append('title', recipeTitle);
+        formData.append('category', category);
+        formData.append('preparation_time', prepTime);
+        formData.append('no_people', noPeople);
+        formData.append('recipe', recipe);
+        formData.append('short_description', shortDescription);
+        formData.append('account', loggedUserId);
+          
   
         fetch(`http://localhost:3000/recipes/`, {
           method: 'POST',
           headers: { 
             'Authorization': `Bearer ${loggedUser.token}`,
-          }
+          },
+          body: formData
         }).then(res => res.json())
           .then ((data) => {
             console.log(data)
+
         });
     
       }
@@ -108,10 +115,10 @@ const CreateRecipe = () => {
                                     }}
                                 >
                                 <option value="" disabled selected>Choose your option</option>
-                                <option value="1">Breakfast</option>
-                                <option value="2">Brunch</option>
-                                <option value="3">Lunch</option>
-                                <option value="3">Dinner</option>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Brunch">Brunch</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
                             </select>
                                
                                

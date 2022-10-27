@@ -63,6 +63,7 @@
 .modal-image {
     width: 412px;
     height: 243px;
+    object-fit: cover;
 }
 
 .best-served-for {

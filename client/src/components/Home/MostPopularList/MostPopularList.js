@@ -33,7 +33,7 @@ const MostPopularList = ({recipes, title}) => {
                         key={recipe._id}>
                         
                             <div className="image-container">
-                            <img  src={recipe.image}/>
+                            <img className="recipe-img"  src={recipe.image}/>
                             <p className="category">{recipe.category}</p>
                             </div>
                             

@@ -10,7 +10,7 @@ import Register from './components/auth/Register/Register';
 import MyProfile from './components/MyProfile/MyProfile';
 import MyRecipes from './components/MyRecipes/MyRecipes';
 import CreateRecipe from './components/MyRecipes/CreateRecipe/CreateRecipe';
-import { BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import { UserContext } from './services/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -20,7 +20,7 @@ function App() {
   const [loggedUser, setLoggedUser] = useState(null);
   const value = useMemo(() => ({ loggedUser, setLoggedUser}), [loggedUser, setLoggedUser]);
 
-
+  
   console.log(loggedUser);
 
 

@@ -26,6 +26,7 @@ const recipeSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  // lajkovite treba da se niza od idinja na accounti koi go lajknale
   likes: {
     type: Number,
     require: false

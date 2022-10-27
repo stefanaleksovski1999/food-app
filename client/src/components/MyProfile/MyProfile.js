@@ -8,14 +8,14 @@ import avatar from '../MyProfile/avatar2.jpg'
 
 const MyProfile = () => {
   const { loggedUser } = useContext(UserContext);
-
+  console.log(loggedUser)
   
   const [firstName, setFirstName] = useState(loggedUser.account.first_name);
-  const [lastName, setLastName] = useState('');
-  const [date, setDate] = useState('')
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cPassword, setCPassword] = useState('');
+  const [lastName, setLastName] = useState(loggedUser.account.last_name);
+  const [date, setDate] = useState(loggedUser.account.date)
+  const [email, setEmail] = useState(loggedUser.account.email);
+  const [password, setPassword] = useState(loggedUser.account.password);
+  const [cPassword, setCPassword] = useState(loggedUser.account.password);
   const [file, setFile] = useState();
   const [image, setImage] = useState(loggedUser.account.image);
 
@@ -25,10 +25,6 @@ const MyProfile = () => {
 
 
   // console.log(image);
-  
-
-
-    
 
     console.log(loggedUser);
 
@@ -59,29 +55,19 @@ const MyProfile = () => {
 
       const url = `http://localhost:3000/accounts/${loggedUser.account._id}`;
 
-      // const data = {firstName, lastName, date, email, password, formData };
-
 
       axios
         .post(url, formData, config)
         .then((res) => {
-          alert('Image Uploaded Successfully!')
+          console.log(res);
+          alert('Accound updated Successfully!')
         })
         .catch((err) => {
           console.log('err', err)
         });
 
-      // fetch(`http://localhost:3000/accounts/${loggedUser.account._id}`, {
-      //   method: 'POST',
-      //   headers: { 
-      //     'Content-Type': 'multipart/form-data' },
-      //   body: formData
-      // }).then(res => res.json())
-      //   .then ((data) => {
-      //     console.log(data)
-      // });
-  
-    }
+      
+    };
 
     const handleCPassword = (e) => {
       setCPassword(e.target.value);
@@ -112,7 +98,10 @@ const MyProfile = () => {
         
 
           <div className="avatar-container">
-            <img className="avatar"  src={ image ? image : avatar }></img>
+            <div className="img-container">
+              <img className="avatar"  src={ image ? image : avatar }></img>
+            </div>
+            
 
             <label className='label-tag' for="inputTag">
                CHANGE AVATAR
@@ -131,7 +120,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">First name</label>
               <input
-                placeholder={loggedUser.account.first_name}
+                placeholder={firstName}
                 className="input-control"
                 type="first-name"
                 onChange={(e) => {
@@ -142,7 +131,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Last name</label>
               <input
-                placeholder={loggedUser.account.last_name}
+                placeholder={lastName}
                 className="input-control"
                 type="last-name"             
                 onChange={(e) => {
@@ -153,7 +142,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Email</label>
               <input
-                placeholder={loggedUser.account.email}
+                placeholder={email}
                 className="input-control"
                 type="email"             
                 onChange={(e) => {
@@ -164,7 +153,7 @@ const MyProfile = () => {
             <div className="field-control">
               <label className="input-name">Birthday</label>
               <input
-                placeholder={loggedUser.account.dateOfBirth}
+                placeholder={date}
                 className="input-control"
                 type="date"             
                 onChange={(e) => {
@@ -185,7 +174,7 @@ const MyProfile = () => {
             </div>
             <div className="field-control">
               <label className="input-name">Repeat Password</label>
-              <input
+              <input                
                 className="input-control"
                 type="password"             
                 onChange={handleCPassword}

@@ -1,4 +1,4 @@
-const Recipe = require('../models/recipe');
+ const Recipe = require('../models/recipe');
 const upload = require('../utilities/upload/multer');
 
 const getAll = async (req, res) => {
@@ -119,8 +119,9 @@ const getDinner = async (req, res) => {
 const  create = async (req, res) => {
   try {
     req.body.image = `http://localhost:3000/images/${req.file.filename}`
+    
     const recipe = await Recipe.create(req.body);
-    console.log(recipe);
+
     res.status(201).send({
       error: false,
       message: `New recipe has been created!`,

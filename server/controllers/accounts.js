@@ -13,6 +13,17 @@ const getAll = async (req, res) => {
   });
 };
 
+const updateRecipe = async (req, res) => {
+  await Account.findByIdAndUpdate(req.params.id, req.body);
+  const account = await Account.findById(req.params.id);
+
+  res.send({
+    error: false,
+    message: `Company with id #${account._id} has been updated`,
+    account
+  });
+};
+
 
 const update = async (req, res) => {
 
@@ -131,6 +142,7 @@ const login = async (req, res) => {
 module.exports = {
   getAll,
   getOne,
+  updateRecipe,
   update,
   destroy,
   login,

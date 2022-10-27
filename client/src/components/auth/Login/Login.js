@@ -2,6 +2,7 @@ import "./Login.css"
 import React, { useContext, useState } from 'react'
 import { UserContext } from "../../../services/UserContext";
 import { Redirect } from "react-router-dom";
+import * as EmailValidator from 'email-validator';
 
 const Login = (props) => {
   
@@ -9,10 +10,12 @@ const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { setLoggedUser } = useContext(UserContext);
+    const { loggedUser, setLoggedUser } = useContext(UserContext);
     // const { loggedUser, setLoggedUser } = useContext(UserContext);
     const [ isLoggedIn, setIsLoggedIn] = useState(false);
-    
+
+
+    EmailValidator.validate(email);
 
 
       const login = (e) => {
@@ -27,9 +30,14 @@ const Login = (props) => {
           body: JSON.stringify(data)
         }).then(res => res.json())
           .then ((data) => {
-            setLoggedUser(data);
+            if (data.message === "You have logged in succesfully") {
+              setIsLoggedIn(true)              
+              setLoggedUser(data);
+            }else {
+              console.log('invalid email or password');
+              alert("Invalid email or password");
+            }
             // setLoggedUser(data.account);
-            setIsLoggedIn(true)
             
           });
 
