@@ -1,4 +1,5 @@
  const Recipe = require('../models/recipe');
+ const Account = require('../models/account'); 
 const upload = require('../utilities/upload/multer');
 
 const getAll = async (req, res) => {
@@ -119,8 +120,18 @@ const getDinner = async (req, res) => {
 const  create = async (req, res) => {
   try {
     req.body.image = `http://localhost:3000/images/${req.file.filename}`
+
     
-    const recipe = await Recipe.create(req.body);
+    const recipe = await Recipe.create(req.body);   
+    
+    await Account.findByIdAndUpdate(req.body.account , {
+    $push: { recipes: recipe }  
+      })
+    
+
+
+    //
+    
 
     res.status(201).send({
       error: false,
@@ -135,9 +146,16 @@ const  create = async (req, res) => {
   }
 };
 
+
+
 const update = async (req, res) => {
 
   const recipe =  await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true});
+
+  // logika za sporedba na  likeId so likedId vo baza ..
+  // dokolku go ima vo baza.. mu prakjam funkcija za dislike, odnosno delete na id 
+  // Mora Nova ruta za lajk 
+
 
   res.send({
     error: false,

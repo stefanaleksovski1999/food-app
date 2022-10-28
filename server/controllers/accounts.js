@@ -42,9 +42,9 @@ const update = async (req, res) => {
 
 
 const getOne = async (req, res) => {
-
+  console.log(req.params.id);
   const account = await Account.findById(req.params.id).populate('recipes', "title category", );
-
+  
   res.send({
     error: false,
     message: 'Account by id from the database',

@@ -26,11 +26,14 @@ const recipeSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  // lajkovite treba da se niza od idinja na accounti koi go lajknale
-  likes: {
-    type: Number,
-    require: false
-  },
+  // lajkovite treba da se niza od idinja na accounti koi
+  // go lajknale i posle na front da proveruvam dali acc-tot
+  // so toa id go ima lajknato receptot
+  // .length na nizata za da se prikaze kolku lajka se 
+  likes: [{
+    type: mongoose.Types.ObjectId,
+    required: false
+  }],
   image: {
     type: String
   },
