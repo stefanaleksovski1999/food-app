@@ -56,6 +56,8 @@ const Register = (props) => {
             setUserCreated(true);
             if(!data.error){
               loginPost()
+            }else{
+              alert(data.message)
             }
         });
 

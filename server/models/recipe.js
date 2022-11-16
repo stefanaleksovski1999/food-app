@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const account = require('./account');
 
 
 const recipeSchema = mongoose.Schema({
@@ -30,8 +31,10 @@ const recipeSchema = mongoose.Schema({
   // go lajknale i posle na front da proveruvam dali acc-tot
   // so toa id go ima lajknato receptot
   // .length na nizata za da se prikaze kolku lajka se 
+  //
   likes: [{
     type: mongoose.Types.ObjectId,
+    ref: 'account',
     required: false
   }],
   image: {

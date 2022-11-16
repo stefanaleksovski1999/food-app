@@ -39,7 +39,7 @@ const getPopular = async (req, res) => {
   const recipes = await Recipe.find().populate('account', 'first_name last_name');
 
   recipes.sort(function (a, b) {
-    return b.likes - a.likes;
+    return b.likes.length - a.likes.length;
   });
 
 
@@ -149,7 +149,7 @@ const  create = async (req, res) => {
 
 
 const update = async (req, res) => {
-
+ console.log(req);
   const recipe =  await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true});
 
   // logika za sporedba na  likeId so likedId vo baza ..

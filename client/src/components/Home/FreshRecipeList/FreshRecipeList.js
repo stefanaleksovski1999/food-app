@@ -1,16 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../../services/UserContext";
 import Modal from "../../Modal/Modal";
 import "./FreshRecipeList.css"
 
 
 const FreshRecipeList = ({recipes, title}) => {
+    const { loggedUser } = useContext(UserContext);
 
     const [openModal, setOpenModal] = useState(false)
     const [modalContent, setModalContent] = useState('')
 
 
     const handleClickOne = (recipeId) => {
-        fetch(`http://localhost:3000/recipes/` + recipeId)
+        fetch(`http://localhost:3000/recipes/` + recipeId,{
+            method: 'GET',
+            headers: { 
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${loggedUser.token} ` 
+            },
+            
+        })
         .then(res => {
             return res.json();
         })

@@ -2,43 +2,92 @@ import React from 'react'
 import "./Modal.css"
 import { useState, useContext } from 'react';
 import { UserContext } from "../../services/UserContext";
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
 
 function Modal({ closeModal, recipe, setModalContent }) {
     const { loggedUser } = useContext(UserContext);
-
-
-    const [likes, setLikes] = useState(recipe.oneRecipe.likes.length);
+    
+    
+    const [likes, setLikes] = useState(recipe.oneRecipe.likes);
     const [isLike, setIsLike] = useState(false);
+
     
-    console.log(loggedUser);
+    // const [arrayLikes, setArrayLikes] = useState([...likes]);
+    
     const recipeId = recipe.oneRecipe._id
+    const history = useHistory();
+    console.log(likes)
+
     
-    useEffect(() => {
-        fetch(`http://localhost:3000/recipes/${recipeId}`, {
-            method: 'PATCH',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({
-                likes: likes,
-            }),
-        }).then(res => res.json())
-        .then ((data) => {
-            console.log(data)
-        });
-        
-      }, [likes]);
+    // function patchRecipeLikes () {
+    //     fetch(`http://localhost:3000/recipes/${recipeId}`, {
+    //         method: 'PATCH',
+    //         headers: { 
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${loggedUser.token} ` 
+    //         },
+    //         body: JSON.stringify({
+    //             likes: likes,
+    //         }),
+    //     }).then(res => res.json())
+    //     .then ((data) => {
+    //         console.log(data)
+    //     });
+    // }
+    
+    
+    const didMount = React.useRef(false);
+    React.useEffect(() => {
+        if (didMount.current) {
+            fetch(`http://localhost:3000/recipes/${recipeId}`, {
+                method: 'PATCH',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${loggedUser.token} ` 
+                },
+                body: JSON.stringify({
+                    likes: likes,
+                }),
+            }).then(res => res.json())
+            .then ((data) => {
+                console.log(data)
+            });
+        } else {
+        didMount.current = true;
+        }
+    }, [isLike]);
+    
+    function removeIdFromArray(arr, id) {
+        const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+        arr.splice(objWithIdIndex, 1);
+        return arr;
+    };
+                            
+
+
+    // treba arrayLikes da go smenam dole so funcijata za remova ili setLikes
     
     const onLikeButtonClick = () => {
-        setLikes(likes + (isLike?-1:1));
-        setIsLike(!isLike);
-    
-        console.log('peder')
+        if (loggedUser === null) {
+            history.push('/acc/login')
+        } else {
+            if (likes.includes(loggedUser.account._id)) {
+                removeIdFromArray(likes, loggedUser.account._id);
+                setIsLike(false);
+                console.log('ova e dislike. ' + likes);
+            } else {
+                setIsLike(true);
+                setLikes([...likes, loggedUser.account._id]);
+                console.log('ova e like. ' + likes.length);                
+            }
+            
+        }
+        
     }
+    console.log(likes);
 
   return (
     <div className="modalBackground" onClick={() => {closeModal(false); setModalContent(null)}}>

@@ -60,7 +60,7 @@ const MyProfile = () => {
         .post(url, formData, config)
         .then((res) => {
           console.log(res);
-          alert('Accound updated Successfully!')
+          alert('Account updated Successfully!')
         })
         .catch((err) => {
           console.log('err', err)

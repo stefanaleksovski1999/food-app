@@ -58,3 +58,16 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
+
+
+ // logika za sporedba na  likeId so likedId vo baza .. dokolku go ima vo baza.. mu prakjam funkcija za dislike, odnosno delete na id 
+  // Mora Nova ruta za lajk 
+
+
+
+  //da vidam za population  videata od predavanjeto koga kreiram recept
+  // da go ima akoauntot sto go napravil receptot.
+  // 

@@ -4,6 +4,10 @@
     margin-left: 18px;
 }
 
+.bin:hover {
+    fill: rgb(207, 0, 0);
+}
+
 .recipe-category {
     background-color:#96BB36;
     color: white;

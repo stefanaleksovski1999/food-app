@@ -1,13 +1,15 @@
 import './MyRecipes.css'
 import { UserContext } from "../../services/UserContext";
 import { useContext, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 const MyRecipes = () => {
 
     const { loggedUser } = useContext(UserContext);
     const [data, setData] = useState(null);
+    const history = useHistory();
+
 
  
 
@@ -32,13 +34,14 @@ const MyRecipes = () => {
       fetch(`http://localhost:3000/recipes/${recipe._id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': "Bearer" + loggedUser.token
+             'Authorization': `Bearer ${loggedUser.token} `
       }
       })
       .then(res => res.json()) // or res.json()
       .then(res => console.log(res))
-
+      alert('Recipe has been deleted.')
       console.log('done');
+      history.push('/')
     }
 
 

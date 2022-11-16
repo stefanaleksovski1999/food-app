@@ -2,12 +2,13 @@ import './CreateRecipe.css';
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../services/UserContext";
 import { useContext, useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 
 const CreateRecipe = () => {
     
     const [oneRecipe, setOneRecipe] = useState(null);
     const { token } = useContext(UserContext);
-
+    const history = useHistory();
 
     const [file, setFile] = useState();
     const [image, setImage] = useState();
@@ -61,7 +62,8 @@ const CreateRecipe = () => {
             console.log(data)
 
         });
-    
+        
+        history.push('/')
       }
 
 
